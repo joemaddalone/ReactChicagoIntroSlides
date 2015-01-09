@@ -1,0 +1,13 @@
+<h2 class="flat">Use React as the UI for other frameworks</h2>
+<pre class="big" style="background:#2a211c;color:#bdae9d">app.directive(<span style="color:#049b0a">'reactDirective'</span>, <span style="color:#43a8ed;font-weight:700">function</span>(){
+  <span style="color:#43a8ed;font-weight:700">return</span> {
+    restrict: <span style="color:#049b0a">'E'</span>,
+    scope: {data:<span style="color:#049b0a">'='</span>},
+    <span style="color:#ff9358;font-weight:700">link</span>: <span style="color:#43a8ed;font-weight:700">function</span>( scope, elm, attr ){
+      scope.<span style="color:#687687">$</span><span style="color:#7290d9;font-weight:700">watch</span>( <span style="color:#049b0a">'data'</span>, <span style="color:#43a8ed;font-weight:700">function</span>( newVal, oldVal ){
+        React.render( APP( { data: newVal } ), elm[<span style="color:#44aa43">0</span>]);
+      })
+    }
+  }
+})
+</pre>

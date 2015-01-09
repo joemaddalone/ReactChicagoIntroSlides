@@ -1,0 +1,10 @@
+<h2 class="flat">Get started by updating small sections of your UI</h2>
+
+<pre class="big" style="background:#2a211c;color:#bdae9d"><span style="color:#687687">$</span>(<span style="color:#6d79de;font-weight:700">document</span>).on(<span style="color:#049b0a">'click'</span>, <span style="color:#049b0a">'.show'</span>, <span style="color:#43a8ed;font-weight:700">function</span>(){
+  React.render(Component(), someElement);
+});
+
+<span style="color:#687687">$</span>(<span style="color:#6d79de;font-weight:700">document</span>).on(<span style="color:#049b0a">'click'</span>, <span style="color:#049b0a">'.remove'</span>, <span style="color:#43a8ed;font-weight:700">function</span>(){
+  React.unmountComponentAtNode(someElement);
+})
+</pre>

@@ -1,0 +1,98 @@
+h1,h2,h3 {
+font-family:verdana;
+text-transform:none!important
+}
+
+h1.big {
+font-size:10rem
+}
+
+.flat {
+text-shadow:none!important
+}
+
+.text-left {
+text-align:left
+}
+
+.em {
+color:#00C0F7!important
+}
+
+.em2 {
+color:#ED9D13!important
+}
+
+.reveal pre {
+background:#2a211c;
+color:#bdae9d;
+max-height:650px!important;
+padding:10px!important;
+width:100%!important
+}
+
+.reveal pre.big {
+font-size:2.5rem
+}
+
+.reveal pre.bigger {
+font-size:2.8rem
+}
+
+img.nooutline {
+border:0!important;
+box-shadow:0 0 0!important
+}
+
+.reservedBold {
+color:#43a8ed;
+font-weight:700!important
+}
+
+.reservedLight {
+color:#318495!important
+}
+
+.symbol {
+color:#687687!important
+}
+
+.orangeBold {
+color:#ff9358!important;
+font-weight:700!important
+}
+
+.greenBold {
+color:#00af0e!important;
+font-weight:700!important
+}
+
+.htmlComment {
+color:#06f!important;
+font-style:italic!important
+}
+
+.underline {
+text-decoration:underline
+}
+
+.bold {
+font-weight:700!important
+}
+
+.greenLight {
+color:#049b0a!important
+}
+
+.italic {
+font-style:italic
+}
+
+.lt {
+color:#43a8ed!important
+}
+
+.reservedSecond {
+color:#7290d9!important;
+font-weight:700!important
+}

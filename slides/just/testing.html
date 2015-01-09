@@ -1,0 +1,11 @@
+<h2 class="flat">Test</h2>
+
+<pre class="big" style="background:#2a211c;color:#bdae9d"><span style="color:#43a8ed;font-weight:700">var</span> test <span style="color:#687687">=</span> React.addons.TestUtils;
+describe(<span style="color:#049b0a">'Component'</span>, <span style="color:#43a8ed;font-weight:700">function</span>() {
+  it(<span style="color:#049b0a">'should have a val of 1'</span>, <span style="color:#43a8ed;font-weight:700">function</span>() {
+    <span style="color:#43a8ed;font-weight:700">var</span> c <span style="color:#687687">=</span> test.renderIntoDocument(Component());
+    test.Simulate.<span style="color:#7290d9;font-weight:700">click</span>(c.refs.buttonA.getDOMNode());
+    c.state.val.should.equal(<span style="color:#44aa43">1</span>);
+  });
+});
+</pre>

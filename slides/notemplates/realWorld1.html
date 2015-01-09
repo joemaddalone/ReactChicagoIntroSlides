@@ -1,0 +1,16 @@
+ <h2>In the real world, concern #1...</h2>
+<pre class="big" style="background:#2a211c;color:#bdae9d"><span style="color:#43a8ed;font-weight:700">return</span> BaseView.extend( {
+  events: {
+    <span style="color:#049b0a">'click .filterModel'</span>: <span style="color:#049b0a">'aHandler'</span>
+  },
+  <span style="color:#ff9358;font-weight:700">aHandler</span>: <span style="color:#43a8ed;font-weight:700">function</span>( e ){
+    e.preventDefault();
+    renderAgain( _.extend( <span style="color:#318495">this</span>.collection, {
+      model: <span style="color:#687687">$</span>( e.currentTarget ).<span style="color:#00af0e;font-weight:700">data</span>( <span style="color:#049b0a">'modelNumber'</span> )
+    } ) );
+  },
+  <span style="color:#ff9358;font-weight:700">render</span>: <span style="color:#43a8ed;font-weight:700">function</span> () {...}
+  <span style="color:#ff9358;font-weight:700">renderAgain</span>: <span style="color:#43a8ed;font-weight:700">function</span> ( newState ) {...}
+} );
+
+</pre>

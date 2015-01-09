@@ -1,0 +1,17 @@
+<h2 class="flat">Integrate third-party libraries</h2>
+
+<pre class="big" style="background:#2a211c;color:#bdae9d"><span style="color:#43a8ed;font-weight:700">var</span> App <span style="color:#687687">=</span> React.createClass({
+  <span style="color:#ff9358;font-weight:700">render</span>:<span style="color:#43a8ed;font-weight:700">function</span>(){
+    <span style="color:#43a8ed;font-weight:700">return</span> (
+      <span style="color:#687687">&lt;</span>select<span style="color:#687687">></span>
+        <span style="color:#687687">&lt;</span>option value<span style="color:#687687">=</span><span style="color:#049b0a">"AL"</span><span style="color:#687687">></span>Alabama<span style="color:#687687">&lt;</span>/option<span style="color:#687687">></span>
+        ...
+        <span style="color:#687687">&lt;</span>option value<span style="color:#687687">=</span><span style="color:#049b0a">"WY"</span><span style="color:#687687">></span>Wyoming<span style="color:#687687">&lt;</span>/option<span style="color:#687687">></span>
+      <span style="color:#687687">&lt;</span>/select<span style="color:#687687">></span>
+    )
+  },
+  <span style="color:#ff9358;font-weight:700">componentDidMount</span>:<span style="color:#43a8ed;font-weight:700">function</span>(){
+    <span style="color:#687687">$</span>(<span style="color:#318495">this</span>.getDOMNode()).selectPlugin();
+  },
+});
+</pre>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ReactJS Chicago Meetup #1! Intro to React</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/2.6.2/css/reveal.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/2.6.2/css/theme/default.css" />
+    <link rel="stylesheet" href="css/mod.css" /> </head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <section>
+                    <h1>Intro to React</h1>
+                    <h2>Chicago ReactJS Meetup #1!!!!!</h2>
+                </section>
+                <section>
+                    <h3>My one big statement.</h3>
+                    <div class="fragment">
+                        <h1 class="flat">The ideas behind<br /><span class="em">REACT</span><br />have changed<br />web development.</h1> </div>
+                </section>
+                <section>
+                    <h2 class="em">Hey guy, what are these ideas?</h2>
+                    <div class="fragment"> <img src="img/PeteHunt.jpg" height="319" width="429" />
+                        <p>Meet Pete Hunt of the Core React Team.</p>
+                    </div>
+                    <p class="em fragment">Pete says amazing things like:</p>
+                    <blockquote class="fragment">"Reduce coupling, increase cohesion"</blockquote>
+                    <blockquote class="fragment">"Mutable state is the root of all evil."</blockquote>
+                    <blockquote class="fragment">"React components are just idempotent functions"</blockquote>
+                    <p class="fragment">..and he can back up those statements.</p>
+                    <h3 class="fragment em">Watch his talks about React, srsly.</h3>
+                </section>
+                <section>
+                    <h2 class="em">@JoeMaddalone</h2>
+                    <p class="fragment">Technical Architect at Universal Mind</p>
+                    <p class="fragment">Instructor at egghead.io</p>
+                    <div class="fragment" style="border-top:1px solid #222;padding-top: 20px;">
+                        <p>youtube.com/joemaddalone</p>
+                        <p>JavascriptOO.com</p>
+                        <p>Filltext.com</p>
+                    </div>
+                    <p class="fragment" style="border-top:1px solid #222;padding-top: 20px;">NOT AS COOL AS PETE HUNT</p>
+                </section>
+                <section>
+                    <blockquote>"Reduce coupling, increase cohesion"</blockquote>
+                    <p class="em fragment">Use JavaScript, not templates</p>
+                    <br />
+                    <blockquote>"Mutable state is the root of all evil."</blockquote>
+                    <p class="em fragment">State is hard. Just Re-render everything.</p>
+                    <br />
+                    <blockquote>"React components are just idempotent functions"</blockquote>
+                    <p class="em fragment">React components are just functions</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>Use JavaScript, not templates?</h1>
+                    <h2 class="fragment">Now you say, <span class="em">"but, what about separation of concerns?"</span></h2>
+                    <h2 class="fragment">then I say, <span class="em">"We never had it.... muwahahahah"</span></h2>
+                </section>
+                <section>
+                    <h1>In a not so bad world</h1>
+                    <h4>JavaScript</h4>
+
+<!-- code/notSoBad.js -->
+<pre class="big"><span class="reservedBold">return</span> BaseView.extend( {
+  <span class="orangeBold">initialize</span>: <span class="reservedBold">function</span> ( options ) {
+    <span class="reservedBold">new</span> <span class="underline">Collection</span>().fetch().then(<span class="reservedBold">function</span>(data){
+      <span class="reservedLight">this</span>.collection <span class="symbol">=</span> data;
+    })
+  },
+  <span class="orangeBold">render</span>: <span class="reservedBold">function</span> () {
+    <span class="reservedBold">var</span> template <span class="symbol">=</span> _.template( myViewTemplate, {collection: <span class="reservedLight">this</span>.collection} );
+    <span class="reservedLight">this</span>.<span class="symbol">$</span>el.html( template );
+  }
+} );
+</pre>
+<!-- end code/notSoBad.js -->
+
+                </section>
+                <section>
+                    <h1>In a not so bad world</h1>
+                    <h4>template</h4>
+
+<!-- code/notSoBad.html -->
+<pre class="big"><span class="lt">&lt;<span class="bold">ul</span>></span>
+  &lt;% _.each( collection, function( item ){ %>
+  <span class="lt">&lt;<span class="bold">li</span>></span>&lt;%= item.get(<span class="greenLight">"title"</span>) %><span class="lt">&lt;/<span class="bold">li</span>></span>
+  &lt;% }); %>
+<span class="lt">&lt;/<span class="bold">ul</span>></span>
+</pre>
+<!-- end code/notSoBad.html -->
+
+                </section>
+                <section>
+                    <h2>In the real world, concern #1...</h2>
+
+<!-- code/realWorld.js-->
+<pre class="big"><span class="reservedBold">return</span> BaseView.extend( {
+  events: {
+    <span class="greenLight">'click .filterModel'</span>: <span sclass="orangeBold">'aHandler'</span>
+  },
+  <span class="orangeBold">aHandler</span>: <span class="reservedBold">function</span>( e ){
+    e.preventDefault();
+    renderAgain( _.extend( <span class="reservedLight">this</span>.collection, {
+      model: <span class="symbol">$</span>( e.currentTarget ).<span class="greenBold">data</span>( <span class="greenLight">'modelNumber'</span> )
+    } ) );
+  },
+  <span class="orangeBold">render</span>: <span class="reservedBold">function</span> () {...}
+  <span class="orangeBold">renderAgain</span>: <span class="reservedBold">function</span> ( newState ) {...}
+} );
+</pre>
+<!-- end code/realWorld.js-->
+
+                </section>
+                <section>
+                    <h2>... looks a lot like concern #2</h2>
+
+<!-- code/realWorld.html -->
+<pre class="big"><span class="lt">&lt;<span class="bold">ul</span>></span>
+  &lt;% _.each( collection, function( item ){ %>
+  <span class="lt">&lt;<span class="bold">li</span>></span>
+    <span class="lt">&lt;<span class="bold">p</span>></span>&lt;%= item.get(<span class="greenLight">"title"</span>) %><span class="lt">&lt;/<span class="bold">p</span>></span>
+    <span class="lt">&lt;<span class="bold">button</span>
+      <span class="italic">class</span>=<span class="greenLight">"filterModel"</span>
+      <span class="italic">data-modelNumber</span>=<span class="greenLight">"<span style="color:#2fe420">&lt;%= item.get( <span class="greenLight">"modelNumber"</span> ) %></span>"</span>></span>
+      This Models
+    <span class="lt">&lt;/<span class="bold">button</span>></span>
+  <span class="lt">&lt;/<span class="bold">li</span>></span>
+  &lt;% }); %>
+<span class="lt">&lt;/<span class="bold">ul</span>></span>
+</pre>
+<!-- end code/realWorld.html -->
+
+                </section>
+                <section data-background="img/coupling.jpg">
+                    <h1 class="flat">this is <span class="em">coupling</span><br />not <span class="em">separation</span></h2>
+                </section>
+                <section>
+                  <h2 class="flat">and it requires reinventing concepts we already have in Javascript</h1>
+
+<!-- code/reinvention1.html -->
+<pre class="big">{{#each item in collection}} <span class="htmlComment">&lt;!-- loop --></span>
+{{#<span class="reservedBold">if</span> item.active}} <span class="htmlComment">&lt;!-- conditional --></span>
+  {{item.title}}
+{{/<span class="reservedBold">if</span>}}
+{{/each}}
+</pre>
+<!-- end code/reinvention.html -->
+
+<!-- code/reinvention1.html -->
+<pre class="big"><span class="lt">&lt;<span class="bold">div</span> <span class="italic">ng-repeat</span>=<span class="greenLight">"item in collection"</span>></span> <span class="htmlComment">&lt;!-- loop --></span>
+  <span class="lt">&lt;<span class="bold">div</span> <span class="italic">ng-show</span>=<span class="greenLight">"item.active"</span>></span> <span class="htmlComment">&lt;!-- conditional --></span>
+    {{item.title}}
+  <span class="lt">&lt;/<span class="bold">div</span>></span>
+<span class="lt">&lt;/<span class="bold">div</span>></span>
+</pre>
+<!-- end code/reinvention1.html -->
+
+                </section>
+                <section data-background="img/goldberg.jpg"> </section>
+                <section>
+                    <h1 class="flat">The problem with coupling:</h1>
+                    <ul>
+                        <li>A <span class="em2">change</span> in one module usually forces a ripple effect of changes in other modules.</li>
+                        <li><span class="em2">Assembly</span> of modules might require more effort and/or time due to the increased inter-module dependency.</li>
+                        <li>A particular module might be harder to <span class="em2">reuse</span> and/or test because dependent modules must be included.</li>
+                    </ul>
+                    <hr /> -- http://en.wikipedia.org/wiki/Coupling_(computer_programming)
+                </section>
+                <section>
+                    <h1>Okay, so no more templates, but what then?</h1>
+                    <hr>
+                    <h2 class="em">I ain't doing this horsesh*t</h2>
+
+<!-- code/horseshit.js -->
+<pre class="big"><span class="reservedBold">var</span> HelloWorld <span class="symbol">=</span> <span class="reservedBold">document</span>.<span class="reservedSecond">createElement</span>(<span class="greenLight">'h1'</span>);
+HelloWorld.<span class="greenBold">id</span> <span class="symbol">=</span> <span class="greenLight">"Hello"</span>;
+HelloWorld.innerHTML <span class="symbol">=</span> <span class="greenLight">"Hello World"</span>;
+<span class="reservedBold">document</span>.<span class="greenBold">body</span>.<span class="reservedSecond">appendChild</span>(HelloWorld);
+</pre>
+<!-- end code/horseshit.js -->
+
+              </section>
+            </section>
+            <section>
+                <section>
+                    <h1>Any guess what this does?</h1>
+
+<!-- code/helloWorld1.js -->
+<pre class="bigger">React.render(React.DOM.h1({id: <span class="greenLight">'Hello'</span>}, <span class="greenLight">'Hello World'</span>), <span class="reservedBold">document</span>.<span class="greenBold">body</span>);
+</pre>
+<!-- end code/helloWorld1.js -->
+
+<!-- code/helloWorld.html -->
+<pre class="bigger fragment"><span class="lt">&lt;<span class="bold">body</span>></span>
+  <span class="lt">&lt;<span class="bold">h1</span> <span class="italic">id</span>=<span class="greenLight">"Hello"</span>></span>Hello World<span class="lt">&lt;/<span class="bold">h1</span>></span>
+<span class="lt">&lt;/<span class="bold">body</span>></span>
+</pre>
+<!-- end code/helloWorld.html -->
+
+                </section>
+                <section>
+                    <h1>How about this?</h1>
+<!-- code/helloWorld2.js -->
+<pre class="big"><span class="reservedBold">var</span> HelloWorld <span class="symbol">=</span> React.createClass({
+  <span class="orangeBold">render</span>: <span class="reservedBold">function</span>(){
+    <span class="reservedBold">return</span> React.DOM.h1({id: <span class="greenLight">'Hello'</span>}, <span class="greenLight">'Hello World'</span>);
+  }
+})
+React.render(HelloWorld(), <span class="reservedBold">document</span>.<span class="greenBold">body</span>);
+</pre>
+<!-- end code/helloWorld2.js -->
+
+
+<!-- code/helloWorld.html -->
+<pre class="big fragment"><span class="lt">&lt;<span class="bold">body</span>></span>
+  <span class="lt">&lt;<span class="bold">h1</span> <span class="italic">id</span>=<span class="greenLight">"Hello"</span>></span>Hello World<span class="lt">&lt;/<span class="bold">h1</span>></span>
+<span class="lt">&lt;/<span class="bold">body</span>></span>
+</pre>
+<!-- end code/helloWorld.html -->
+
+                </section>
+                <section>
+                    <h1>... and what the hell is this?</h1>
+
+<!-- code/helloWorld3.js -->
+<pre class="bigger"><span class="reservedBold">var</span> HelloWorld <span class="symbol">=</span> React.createClass({
+  <span class="orangeBold">render</span>: <span class="reservedBold">function</span>(){
+    <span class="reservedBold">return</span> <span class="symbol">&lt;</span>h1 id<span class="symbol">=</span><span class="greenLight">"Hello"</span><span class="symbol">></span>Hello World<span class="symbol">&lt;</span>/h1<span class="symbol">></span>
+  }
+})
+React.render(<span class="symbol">&lt;</span>HelloWorld /<span class="symbol">></span>, <span class="reservedBold">document</span>.<span class="greenBold">body</span>);
+</pre>
+<!-- end code/helloWorld3.js -->
+
+<!-- code/helloWorld.html -->
+<pre class="bigger fragment"><span class="lt">&lt;<span class="bold">body</span>></span>
+  <span class="lt">&lt;<span class="bold">h1</span> <span class="italic">id</span>=<span class="greenLight">"Hello"</span>></span>Hello World<span class="lt">&lt;/<span class="bold">h1</span>></span>
+<span class="lt">&lt;/<span class="bold">body</span>></span>
+</pre>
+<!-- end code/helloWorld.html -->
+
+                </section>
+                <section subject="Component Basics">
+                    <h1>Demo</h1>Component Basics </section>
+                <section>
+                    <blockquote>"Reduce coupling, increase cohesion"</blockquote>
+                    <p class="em fragment">Use JavaScript, not templates</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>State is hard. Just Re-render everything.</h1>
+                    <h2 class="em fragment">...not really, but it sounds cool.</h2> </section>
+                <section data-background="img/php.png">
+                    <h1>The olden "server-side" days</h1>
+                    <h2>we just refreshed the entire page</h2> </section>
+                <section>
+                    <h1>In modern frontend development</h1>
+                    <h2>We can't just tear down the entire DOM for every update.</h2> </section>
+                <section data-background="img/redpill.jpg">
+                    <h1>React offers a solution to this problem</h1> </section>
+                <section>
+                    <h2>This is not a DOM operation</h2>
+
+<!-- code/notDOM.html -->
+<pre class="bigger"><span class="orangeBold">render</span>: <span class="reservedBold">function</span>(){
+  <span class="underline"><span class="reservedBold">return</span> <span class="symbol">&lt;</span>h1<span class="symbol">></span>Hello World<span class="symbol">!</span><span class="symbol">&lt;</span>/h1<span class="symbol">></span></span>
+}
+</pre>
+                    <h2 class="fragment">It's a description of the DOM for...</h2> </section>
+                <section>
+                    <h1 class="flat big">THE<br />VIRTUAL<br />DOM</h1>
+                    <p class="em">of awesomesauce</p>
+                </section>
+                <section>
+                    <h2>Our initial description of the DOM generates the initial virtual DOM</h2>
+                    <h2 class="flat">Then on every update React...</h2>
+                    <ul>
+                        <li class="fragment">builds a JS representation of the DOM from the <span class="em">point of change</span> </li>
+                        <li class="fragment">compares that subtree with the old one</li>
+                        <li class="fragment">pushes the minimal set of DOM updates into a queue</li>
+                        <li class="fragment">and batch executes all those updates</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2 class="flat">The Virtual DOM Goodness</h2>
+                    <ul>
+                        <li class="fragment">Re-renders are FAST, dont sweat them</li>
+                        <li class="fragment">The state of your app is easy to identify</li>
+                        <li class="fragment">Optimizations are a shouldComponentUpdate away</li>
+                        <li class="fragment">Testing is easy, everything is a function</li>
+                    </ul>
+                </section>
+                <section data-background="#DC1B1F">
+                    <h1>Thirsty?</h1> <img src="img/koolaid.png" class="nooutline" />
+                    <p>Here's the kool-aid you need to drink.</p>
+                </section>
+                <section>
+                    <h1>No Data Binding</h1>
+                    <h2 class="fragment">Just One-way reactive data flow</h2>
+                    <h2 class="fragment">Data flows down, events flow up</h2>
+                    <h2 class="fragment">Just like the DOM, but better</h2>
+                    <h2 class="fragment">Also no...</h2>
+                    <h3 class="fragment">controllers</h3>
+                    <h3 class="fragment">directives</h3>
+                    <h3 class="fragment">models</h3>
+                    <h3 class="fragment">templates</h3>
+                    <h3 class="fragment">view models</h3>
+                    <h3 class="fragment">ProviderProviders</h3> </section>
+                <section>
+                    <h1>Demo</h1>Data Flow </section>
+            </section>
+            <section>
+                <section>
+                    <h1>React components are just functions</h1>
+                    <h2>So it's easy to...</h2> </section>
+                <section>
+                    <h2 class="flat">Get started by updating small sections of your UI</h2>
+
+<!-- code/babySteps.js -->
+<pre class="big"><span class="symbol">$</span>(<span class="reservedBold">document</span>).on(<span class="greenLight">'click'</span>, <span class="greenLight">'.show'</span>, <span class="reservedBold">function</span>(){
+  React.render(Component(), someElement);
+});
+
+<span class="symbol">$</span>(<span class="reservedBold">document</span>).on(<span class="greenLight">'click'</span>, <span class="greenLight">'.remove'</span>, <span class="reservedBold">function</span>(){
+  React.unmountComponentAtNode(someElement);
+})
+</pre>
+<!-- end code/babySteps.js -->
+
+                </section>
+                <section>
+                    <h2 class="flat">Integrate third-party libraries</h2>
+
+<!-- code/thirdParty.js -->
+<pre class="big"><span class="reservedBold">var</span> App <span class="symbol">=</span> React.createClass({
+  <span class="orangeBold">render</span>:<span class="reservedBold">function</span>(){
+    <span class="reservedBold">return</span> (
+      <span class="symbol">&lt;</span>select<span class="symbol">></span>
+        <span class="symbol">&lt;</span>option value<span class="symbol">=</span><span class="greenLight">"AL"</span><span class="symbol">></span>Alabama<span class="symbol">&lt;</span>/option<span class="symbol">></span>
+        ...
+        <span class="symbol">&lt;</span>option value<span class="symbol">=</span><span class="greenLight">"WY"</span><span class="symbol">></span>Wyoming<span class="symbol">&lt;</span>/option<span class="symbol">></span>
+      <span class="symbol">&lt;</span>/select<span class="symbol">></span>
+    )
+  },
+  <span class="orangeBold">componentDidMount</span>:<span class="reservedBold">function</span>(){
+    <span class="symbol">$</span>(<span class="reservedLight">this</span>.getDOMNode()).selectPlugin();
+  },
+});
+</pre>
+<!-- end code/thirdParty.js -->
+
+                </section>
+                <section>
+                    <h2 class="flat">Test</h2>
+
+<!-- code/test.js -->
+<pre class="big"><span class="reservedBold">var</span> test <span class="symbol">=</span> React.addons.TestUtils;
+describe(<span class="greenLight">'Component'</span>, <span class="reservedBold">function</span>() {
+  it(<span class="greenLight">'should have a val of 1'</span>, <span class="reservedBold">function</span>() {
+    <span class="reservedBold">var</span> c <span class="symbol">=</span> test.renderIntoDocument(Component());
+    test.Simulate.<span class="reservedSecond">click</span>(c.refs.buttonA.getDOMNode());
+    c.state.val.should.equal(<span class="greenLight">1</span>);
+  });
+});
+</pre>
+<!-- end code/test.js -->
+
+                </section>
+                <section>
+                    <h2 class="flat">And since React isnt tied to the DOM, server side rendering</h2>
+
+<!-- code/serverside.js -->
+<pre class="big">
+http.createServer(<span class="reservedBold">function</span>(req, res) {
+  <span class="reservedBold">var</span> props <span class="symbol">=</span> {items: [<span class="greenLight">0</span>, <span class="greenLight">1</span>]}
+
+  <span class="reservedBold">var</span> myAppHtml <span class="symbol">=</span> React.renderToString(MyApp(props))
+  <span class="htmlComment">/* OR */</span>
+  <span class="reservedBold">var</span> myAppHtml <span class="symbol">=</span> React.renderToStaticMarkup(MyApp(props))
+
+  res.setHeader(<span class="greenLight">'Content-Type'</span>, <span class="greenLight">'text/html'</span>)
+  res.end(myAppHtml)
+}).listen(<span class="greenLight">3000</span>)
+</pre>
+<!-- end code/serverside.js -->
+
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h1>A little shilling</h1>
+                    <h2>egghead.io</h2>
+                    <h3>
+  React, Flux, Angular, D3, node, ES6, and more
+</h3>
+                    <h2>Discount code</h2>
+                    <h1>egghead.io/pricing?dc=maddalone</h1> </section>
+                <section data-background="img/questions.jpg">
+                    <h1>Questions?</h1> </section>
+            </section>
+        </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/2.6.2/js/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: false,
+            history: true,
+            center: true,
+            width: 1920,
+            height: 1080,
+            theme: Reveal.getQueryHash().theme,
+            transition: Reveal.getQueryHash().transition || 'default'
+        });
+    </script>
+</body>
+
+</html>

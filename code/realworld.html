@@ -1,0 +1,12 @@
+<ul>
+  <% _.each( collection, function( item ){ %>
+  <li>
+    <p><%= item.get("title") %></p>
+    <button
+      class="filterModel"
+      data-modelNumber="<%= item.get( "modelNumber" ) %>">
+      This Models
+    </button>
+  </li>
+  <% }); %>
+</ul>

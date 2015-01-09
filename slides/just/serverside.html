@@ -1,0 +1,14 @@
+<h2 class="flat">And since React isnt tied to the DOM, server side rendering</h2>
+
+<pre class="big" style="background:#2a211c;color:#bdae9d">
+http.createServer(<span style="color:#43a8ed;font-weight:700">function</span>(req, res) {
+  <span style="color:#43a8ed;font-weight:700">var</span> props <span style="color:#687687">=</span> {items: [<span style="color:#44aa43">0</span>, <span style="color:#44aa43">1</span>]}
+
+  <span style="color:#43a8ed;font-weight:700">var</span> myAppHtml <span style="color:#687687">=</span> React.renderToString(MyApp(props))
+  <span style="color:#06f;font-style:italic">/* OR */</span>
+  <span style="color:#43a8ed;font-weight:700">var</span> myAppHtml <span style="color:#687687">=</span> React.renderToStaticMarkup(MyApp(props))
+
+  res.setHeader(<span style="color:#049b0a">'Content-Type'</span>, <span style="color:#049b0a">'text/html'</span>)
+  res.end(myAppHtml)
+}).listen(<span style="color:#44aa43">3000</span>)
+</pre>

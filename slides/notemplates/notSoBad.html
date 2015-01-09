@@ -1,0 +1,14 @@
+<h1>In a not so bad world</h1>
+<h4>JavaScript</h4>
+<pre class="big" style="background:#2a211c;color:#bdae9d"><span style="color:#43a8ed;font-weight:700">return</span> BaseView.extend( {
+  <span style="color:#ff9358;font-weight:700">initialize</span>: <span style="color:#43a8ed;font-weight:700">function</span> ( options ) {
+    <span style="color:#43a8ed;font-weight:700">new</span> <span style="text-decoration:underline">Collection</span>().fetch().then(<span style="color:#43a8ed;font-weight:700">function</span>(data){
+      <span style="color:#318495">this</span>.collection <span style="color:#687687">=</span> data;
+    })
+  },
+  <span style="color:#ff9358;font-weight:700">render</span>: <span style="color:#43a8ed;font-weight:700">function</span> () {
+    <span style="color:#43a8ed;font-weight:700">var</span> template <span style="color:#687687">=</span> _.template( myViewTemplate, {collection: <span style="color:#318495">this</span>.collection} );
+    <span style="color:#318495">this</span>.<span style="color:#687687">$</span>el.html( template );
+  }
+} );
+</pre>
